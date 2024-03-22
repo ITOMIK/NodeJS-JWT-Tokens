@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { Pool } = require('pg');
 
-const secretKey = 'U:Wd/p:tb6t0PzEne=:yucH{#QsUvVH(FEf+:CJcU":-y%J:Uu`O>pE#,Y0BgN';
+const secretKey = 'yourSecretKey';
 
 var db =  require("./db.js");
 
@@ -14,8 +14,8 @@ function getToken(id, name){
     const payload = {
       sub: id,
       name: name,
-      iat: Math.floor(Date.now() / 1000), // Время создания токена в секундах с начала эпохи Unix
-      exp: Math.floor(Date.now() / 1000) + 90, // Время истечения через 1.5 минут (90 секунд)
+      iat: Math.floor(Date.now() / 1000), 
+      exp: Math.floor(Date.now() / 1000) + 90, 
     };
     const token = jwt.sign(payload, secretKey, { algorithm: 'HS256' });
     return token;
@@ -23,13 +23,11 @@ function getToken(id, name){
 
   function verifyToken(token, secretKey) {
     try {
-      // Попытка декодировать и верифицировать токен
       const decoded = jwt.verify(token, secretKey);
-      return decoded; // Возвращает декодированные данные
+      return decoded; 
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
         return false
-        // Обработка случая истекшего токена
       } else {
         console.error('Ошибка верификации токена:', error.message);
         throw error;
@@ -40,7 +38,7 @@ function getToken(id, name){
   
 
 
-// создаем парсер для данных application/x-www-form-urlencoded
+
 const urlencodedParser = express.urlencoded({extended: false});
 
 function getId(List){
