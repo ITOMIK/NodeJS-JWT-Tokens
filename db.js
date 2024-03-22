@@ -1,11 +1,10 @@
-const Pool = require('pg').Pool // import pg pool instance
-// pg database configuration
+const Pool = require('pg').Pool 
 const pool = new Pool({
-  user: 'postgres', // username 'postgres' by default
-  password: 'yourpassword', // password of psql
-  host: 'localhost',  // host name
-  port: 5432, // port number, 5432 by default
-  database: 'users', // database name
+  user: 'postgres', 
+  password: 'yourpassword', 
+  host: 'localhost', 
+  port: 5432, 
+  database: 'users', 
 });
 
 
@@ -30,7 +29,6 @@ async function getTable(){
   await pool.query('SELECT * FROM public.users')
 .then(result => {
   users = result.rows;
-  //return(result.rows); // результат будет в result.rows
 })
 .catch(error => {
   console.error('Ошибка выполнения SQL-запроса:', error);
@@ -50,10 +48,10 @@ deleteById: async (id) => {
   }
 },
 append: async (username,password)=>{
-  const column1 = getId(await getTable()); // Замените этим значением на значение для column1
-  const column2 = username; // Замените этим значением на значение для column2
-  const column3 = password; // Замените этим значением на значение для column3
-  // SQL-запрос для вставки элемента
+  const column1 = getId(await getTable()); 
+  const column2 = username; 
+  const column3 = password; 
+
   const insertQuery = `INSERT INTO public.users (id, username, password) VALUES ($1, $2, $3)`;
   try {
   await pool.query(insertQuery, [column1, column2, column3]);
