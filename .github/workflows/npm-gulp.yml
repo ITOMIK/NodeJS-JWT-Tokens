@@ -27,5 +27,4 @@ jobs:
 
     - name: Build
       run: |
-        node app.js
-        ^C
+        timeout 10s node app.js
