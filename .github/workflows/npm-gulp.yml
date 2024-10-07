@@ -27,9 +27,4 @@ jobs:
 
     - name: Build
       run: |
-        try {
-        timeout 10s node app.js
-        } 
-        catch {
-          echo "Server terminated"
-        }
+        bash -c 'timeout 10s node app.js; code=$?; if [ $code -eq 124 ]; then echo "Server terminated due to timeout"; else exit $code; fi'
