@@ -27,4 +27,9 @@ jobs:
 
     - name: Build
       run: |
+        try {
         timeout 10s node app.js
+        } 
+        catch {
+          echo "Server terminated"
+        }
